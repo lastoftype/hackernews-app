@@ -7,6 +7,8 @@ import { Row } from '../Layout'
 import LastUpdated from '../LastUpdated'
 import Loading from '../Loading'
 
+
+import delayUnmounting from '../../lib/delay'
 import StorySchema from '../../lib/schema'
 
 const StoryListWrapper = styled.div`
@@ -17,7 +19,7 @@ const StoryListWrapper = styled.div`
 	padding-bottom: 100px
 `
 
-const StoryTitle = styled.h1`
+const PageTitle = styled.h1`
 	font-size: 1.5em;
 	font-weight: normal;
 	padding: 7.5px;
@@ -43,13 +45,13 @@ class StoryList extends React.Component {
 		return (
 			<StoryListWrapper {...this.props}>
 				<Row spaceBetween alignItems="flex-end">
-					<StoryTitle>{title}</StoryTitle>
+					<PageTitle>{title}</PageTitle>
 					<LastUpdated date={this.props.lastUpdated} />
 				</Row>
 				<Row>
-				{
-					(loading === true && stories.length < 1) ? <Loading /> : <span></span>
-				}
+					<Loading 
+						delayTime={500} 
+						isMounted={loading === true && stories.length < 1} />
 				{	
 					stories && 
 					stories.length > 0 && 

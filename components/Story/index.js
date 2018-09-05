@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, {keyframes} from 'styled-components'
 import media from 'styled-media-query'
 import domain from 'getdomain'
 import moment from 'moment'
@@ -20,11 +20,26 @@ import { Row } from '../Layout'
 
 import { StorySchema } from '../../lib/schema'
 
+const FadeIn = keyframes`
+	from {
+		opacity: 0;
+		transform: translateY(2px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+`
+
 const ArticleWrapper = styled.div`
 	flex: 0 0 100%;
 	width: 100%;
 	display: flex;
 	padding: 7.5px;
+	opacity: 0;
+	animation: ${FadeIn} .15s ease forwards .15s;
+
 
 	${media.greaterThan('small')`
 	 	flex: 0 0 50%;

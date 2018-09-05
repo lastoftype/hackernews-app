@@ -1,4 +1,5 @@
 import styled, {keyframes} from 'styled-components'
+import delayUnmounting from '../lib/delay'
 
 const FadeIn = keyframes`
 	from {
@@ -12,12 +13,28 @@ const FadeIn = keyframes`
 	}
 `
 
-const LoadingWrapper = styled.div`
-	padding: 7.5px;
-	opacity: 0;
-	animation: ${FadeIn} .15s ease forwards;
+const FadeOut = keyframes`
+	from {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	to {
+		opacity: 0;
+		transform: translateY(2px);
+	}
 `
 
-export default () => (
-	<LoadingWrapper>Loading...</LoadingWrapper>
+const LoadingWrapper = styled.div`
+	position: absolute;
+	z-index: 0;
+	padding: 7.5px;
+	opacity: 0;
+	animation: ${props => props.isMounted ? FadeIn : FadeOut} .15s ease forwards;
+`
+
+const Loading = ({isMounted}) => (
+	<LoadingWrapper isMounted={isMounted}>Loading...</LoadingWrapper>
 	)
+
+export default delayUnmounting(Loading);
