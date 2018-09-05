@@ -43,7 +43,9 @@ class FavoritesPage extends React.Component {
 
 		let promise = apiClient.getStories(favorites)
 			.then((stories) => {
-				store.dispatch(setFavoriteStories(stories))
+				if(stories && stories.length) {
+					store.dispatch(setFavoriteStories(stories))
+				}
 				return stories;
 			})
 

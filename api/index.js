@@ -56,7 +56,7 @@ export default class ApiClient {
 		return this.get('topstories.json', data)
 	}
 
-	getStories(idArray, limit = 10) {
+	getStories(idArray, limit = 100) {
 		const promises = idArray.slice(0, limit).map(id => this.getSingleStory(id))
 		return Promise.all(promises).then(res => res);
 	}
@@ -64,9 +64,7 @@ export default class ApiClient {
 	getTopStories(limit) {
 		return this.getTopStoriesIds()
 			.then(storyIds => this.getStories(storyIds, limit))
-			.then(data => {
-				return data
-			})
+			.then(data => data)
 			.catch(err => console.log('error!'))
 	}
 

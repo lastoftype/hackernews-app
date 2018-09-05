@@ -12,6 +12,7 @@ const StoryListWrapper = styled.div`
 	flex-direction: column;
 	margin: -7.5px;
 	flex: 1 1 0;
+	padding-bottom: 100px
 `
 
 const StoryTitle = styled.h1`
