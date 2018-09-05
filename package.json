@@ -1,5 +1,6 @@
 {
-  "name": "create-next-example-app",
+  "name": "hackernews-app",
+  "author": "lastoftype",
   "scripts": {
     "dev": "next",
     "build": "next build",
