@@ -48,10 +48,9 @@ class StoryList extends React.Component {
 				</Row>
 				<Row>
 				{
-					(loading === true || stories.length < 1) ? <Loading /> : <span></span>
+					(loading === true && stories.length < 1) ? <Loading /> : <span></span>
 				}
 				{	
-					loading === false &&
 					stories && 
 					stories.length > 0 && 
 					stories.map(({by, title, id, time, url, score}, i) => (
