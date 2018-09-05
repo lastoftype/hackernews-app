@@ -65,7 +65,6 @@ export default class ApiClient {
 		return this.getTopStoriesIds()
 			.then(storyIds => this.getStories(storyIds, limit))
 			.then(data => {
-				console.log('newarray', data);
 				return data
 			})
 			.catch(err => console.log('error!'))

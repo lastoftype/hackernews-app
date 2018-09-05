@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link'
 import styled from 'styled-components'
 import { bindActionCreators } from 'redux'
-import { setStories, setLastUpdated } from '../store/actions'
+import { setFavoriteStories, setLastUpdated } from '../store/actions'
 import { connect } from 'react-redux'
 
 import Head from '../components/Head'
@@ -31,23 +31,43 @@ const Background = styled.div`
 	min-height: 100vh;
 `
 
-class HackerPage extends React.Component {
+class FavoritesPage extends React.Component {
+
+	state = {
+		stories: []
+	}
 
 	static getInitialProps ({ store, isServer }) {
-    return apiClient
-			.getTopStories()
+
+		const {favorites} = store.getState();
+
+		let promise = apiClient.getStories(favorites)
 			.then((stories) => {
-				store.dispatch(setStories(stories))
+				store.dispatch(setFavoriteStories(stories))
 				return stories;
 			})
-			.then(() => {
-				store.dispatch(setLastUpdated())
+
+    return !isServer ? promise : {}
+  }
+
+  fetchStories() {
+  	return apiClient
+			.getStories(this.props.favorites)
+			.then((stories) => {
+				this.props.setFavoriteStories(stories);
+				return stories;
 			})
   }
 
 	constructor(props) {
 		super(props)
 		this.apiClient = apiClient;
+	}
+
+	componentDidUpdate(prevProps, prevState, snapshot) {
+		if(prevProps.favorites.length !== this.props.favorites.length) {
+			this.fetchStories()
+		}
 	}
 
 	render() {
@@ -60,9 +80,9 @@ class HackerPage extends React.Component {
 			  		<Row>
 				  		<SideNav favoriteCount={this.props.favorites.length} />
 				    	<StoryList 
+				    		title="Favorites" 
 				    		lastUpdated={this.props.lastUpdated}
-				    		title="Top stories" 
-				    		stories={this.props.stories} />
+				    		stories={this.props.favoriteStories} />
 			    	</Row>
 			    </Container>
 			  </StoryListWrapper>
@@ -71,15 +91,15 @@ class HackerPage extends React.Component {
 	}
 }
 
-const mapStateToProps = ({loading, favorites, stories, lastUpdated}) => ({favorites, loading, stories, lastUpdated})
+const mapStateToProps = ({loading, favorites, favoriteStories, lastUpdated}) => ({favorites, loading, favoriteStories, lastUpdated})
 
 const mapDispatchToProps = dispatch => ({
-  setStories(){
-  	dispatch(setStories())
+  setFavoriteStories(stories){
+  	dispatch(setFavoriteStories(stories))
   },
   setLastUpdated() {
   	dispatch(setLastUpdated())
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(HackerPage)
+export default connect(mapStateToProps, mapDispatchToProps)(FavoritesPage)

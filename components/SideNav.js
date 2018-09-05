@@ -16,20 +16,51 @@ const SideNav = styled.nav`
 	 `}
 
 	 a {
-	 	display: block;
+	 	display: flex;
+	 	align-items: baseline;
 	 	color: #32325d;
 	 	text-decoration: none;
 	 	margin: 0 0 7.5px;
 
+	 	&:before {
+ 			position: absolute;
+ 			left: -10px;
+ 			top: 0;
+ 			bottom: 0;
+ 			width: 1px;
+ 			height: 1em;
+ 			margin: auto;
+ 			background: #199365;
+ 			border-radius: 30px;
+ 			content: ' ';
+ 			display: block;
+ 			opacity: 0;
+ 			transition: all .15s ease;
+ 		}
+
+	 	&.active {
+	 		position: relative;
+
+	 		&:before {
+	 			opacity: 1;
+	 		}
+	 	}
+
 	 	&:hover {
-	 		text-decoration: underline;
+	 		color: #242456;
+	 	}
+
+	 	span {
+	 		font-size: 0.85em;
+	 		margin-left: 40px;
+	 		opacity: 0.4;
 	 	}
 	 }
 `
 
-export default (props) => (
+export default ({favoriteCount}) => (
 	<SideNav>
-		<Link href="asd"><a>Top stories</a></Link>
-		<Link href="asd"><a>Favorites</a></Link>
+		<SideNavLink href="/" prefetch><a>Top stories</a></SideNavLink>
+		<SideNavLink href="/favorites" prefetch><a>Favorites<span>{favoriteCount > 0 ? favoriteCount : ''}</span></a></SideNavLink>
 	</SideNav>
 	)

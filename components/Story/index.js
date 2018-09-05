@@ -15,6 +15,7 @@ import StoryLink from '../StoryLink'
 import StoryTitle from '../StoryTitle'
 import StoryScore from '../StoryScore'
 import StoryIcon from '../StoryIcon'
+import StoryAuthor from '../StoryAuthor'
 import { Row } from '../Layout'
 
 import { StorySchema } from '../../lib/schema'
@@ -128,7 +129,7 @@ class Story extends React.Component {
 						<StoryTitle title={title} url={url} score={score} />
 					</Row>
 					<Row spaceBetween>
-						<StoryLink url={url} title={title} />
+						<StoryAuthor author={by} />
 						<StoryIcon active={this.isActive} handleClick={() => this.toggleFavorite} />
 					</Row>
 				</Article>

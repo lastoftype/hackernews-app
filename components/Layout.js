@@ -13,6 +13,7 @@ export const Row = styled.div`
 	width: 100%;
 	flex-direction: ${props => props.column ? 'column' : 'row'};
 	justify-content: ${props => props.spaceBetween ? 'space-between' : 'auto'};
+	align-items: ${props => props.alignItems || 'inherit'};
 `
 
 export const Column = styled.div`

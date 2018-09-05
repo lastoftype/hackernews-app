@@ -11,16 +11,29 @@ export const setStories = (stories) => dispatch => {
 	})
 }
 
+export const setFavoriteStories = (stories) => {
+	return {
+		type: types.SET_FAVORITE_STORIES,
+		payload: stories
+	}
+}
+
 export const addFavorite = (id) => {
-	return ({
+	return {
 		type: types.ADD_FAVORITE,
 		payload: id
-	})
+	}
 }
 
 export const removeFavorite = (id) => {
-	return ({
+	return {
 		type: types.REMOVE_FAVORITE,
 		payload: id
-	})
+	}
+}
+
+export const setLastUpdated = () => {
+	return {
+		type: types.SET_LAST_UPDATED
+	}
 }

@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 import Story from '../Story'
 import { Row } from '../Layout'
+import LastUpdated from '../LastUpdated'
 import StorySchema from '../../lib/schema'
 
 const StoryListWrapper = styled.div`
@@ -24,7 +25,8 @@ const StoryTitle = styled.h1`
 class StoryList extends React.Component {
 
 	static propTypes = {
-		stories: PropTypes.arrayOf(PropTypes.shape(StorySchema))
+		stories: PropTypes.arrayOf(PropTypes.shape(StorySchema)),
+		lastUpdated: PropTypes.number
 	}
 
 	constructor(props) {
@@ -33,12 +35,13 @@ class StoryList extends React.Component {
 
 	render() {
 
-		const { stories } = this.props
+		const { stories, title } = this.props
 
 		return (
 			<StoryListWrapper {...this.props}>
-				<Row>
-					<StoryTitle>Top stories</StoryTitle>
+				<Row spaceBetween alignItems="flex-end">
+					<StoryTitle>{title}</StoryTitle>
+					<LastUpdated date={this.props.lastUpdated} />
 				</Row>
 				<Row>
 				{	

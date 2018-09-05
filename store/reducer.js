@@ -3,7 +3,9 @@ import * as types from './action-types'
 export const INITIAL_STATE = {
   stories: [],
   favorites: [],
-  loading: false
+  favoriteStories: [],
+  loading: false,
+  lastUpdated: Date.now()
 }
 
 export const reducer = (state = INITIAL_STATE, action) => {
@@ -17,6 +19,10 @@ export const reducer = (state = INITIAL_STATE, action) => {
       return Object.assign({}, state, {
         stories: action.payload
       })
+    case types.SET_FAVORITE_STORIES: 
+      return Object.assign({}, state, {
+        favoriteStories: action.payload
+      })
     case types.ADD_FAVORITE:
       favorites = [...state.favorites, action.payload]
       return Object.assign({}, state, {
@@ -28,6 +34,10 @@ export const reducer = (state = INITIAL_STATE, action) => {
       favorites.splice(index, 1);
       return Object.assign({}, state, {
         favorites: favorites
+      })
+    case types.SET_LAST_UPDATED:
+      return Object.assign({}, state, {
+        lastUpdated: Date.now()
       })
     default: return state
   }
