@@ -5,6 +5,8 @@ import styled from 'styled-components'
 import Story from '../Story'
 import { Row } from '../Layout'
 import LastUpdated from '../LastUpdated'
+import Loading from '../Loading'
+
 import StorySchema from '../../lib/schema'
 
 const StoryListWrapper = styled.div`
@@ -36,7 +38,7 @@ class StoryList extends React.Component {
 
 	render() {
 
-		const { stories, title } = this.props
+		const { stories, title, loading } = this.props
 
 		return (
 			<StoryListWrapper {...this.props}>
@@ -45,9 +47,13 @@ class StoryList extends React.Component {
 					<LastUpdated date={this.props.lastUpdated} />
 				</Row>
 				<Row>
+				{
+					(loading === true || stories.length < 1) ? <Loading /> : <span></span>
+				}
 				{	
+					loading === false &&
 					stories && 
-					stories.length && 
+					stories.length > 0 && 
 					stories.map(({by, title, id, time, url, score}, i) => (
 							<Story
 								by={by}
@@ -56,7 +62,6 @@ class StoryList extends React.Component {
 								score={score}
 								time={time}
 								url={url}
-								active={score > 140}
 								key={i} />
 						)
 					)

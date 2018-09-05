@@ -19,8 +19,11 @@ let colors = colormap({
 
 const getColor = (s) => {
 	const score = parseInt(s, 10);
-	const perc = Math.floor(score / 400 * 10 / 2);
-	return colors[perc] || colors[0];
+	let perc = Math.floor(score / 400 * 10 / 2);
+	if(perc > 4) {
+		perc = 4;
+	}
+	return colors[perc - 1] || colors[0];
 }
 
 const FadeIn = keyframes`

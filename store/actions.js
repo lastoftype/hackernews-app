@@ -37,3 +37,10 @@ export const setLastUpdated = () => {
 		type: types.SET_LAST_UPDATED
 	}
 }
+
+export const setLoading = (bool) => {
+	return {
+		type: types.SET_LOADING,
+		payload: bool
+	}
+}

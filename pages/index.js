@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link'
 import styled from 'styled-components'
 import { bindActionCreators } from 'redux'
-import { setStories, setLastUpdated } from '../store/actions'
+import { setStories, setLastUpdated, setLoading } from '../store/actions'
 import { connect } from 'react-redux'
 
 import Head from '../components/Head'
@@ -34,14 +34,31 @@ const Background = styled.div`
 class HackerPage extends React.Component {
 
 	static getInitialProps ({ store, isServer }) {
-    return apiClient
+		return store.getState();
+  }
+
+  componentDidMount() {
+
+  	// Only update if it's over 60 seconds ago
+  	let minuteHasPassed = (Date.now() - this.props.lastUpdated) < 60000;
+  	let hasNoStories = this.props.stories && this.props.stories.length < 1;
+  	
+  	if(minuteHasPassed && hasNoStories) {
+  		this.fetchStories()
+  	}
+  }
+
+  fetchStories() {
+  	this.props.setLoading(true)
+
+  	apiClient
 			.getTopStories()
 			.then((stories) => {
-				store.dispatch(setStories(stories))
-				return stories;
+				this.props.setStories(stories)
 			})
 			.then(() => {
-				store.dispatch(setLastUpdated())
+				this.props.setLoading(false)
+				this.props.setLastUpdated()
 			})
   }
 
@@ -60,6 +77,7 @@ class HackerPage extends React.Component {
 			  		<Row>
 				  		<SideNav favoriteCount={this.props.favorites.length} />
 				    	<StoryList 
+				    		loading={this.props.loading}
 				    		lastUpdated={this.props.lastUpdated}
 				    		title="Top stories" 
 				    		stories={this.props.stories} />
@@ -74,11 +92,14 @@ class HackerPage extends React.Component {
 const mapStateToProps = ({loading, favorites, stories, lastUpdated}) => ({favorites, loading, stories, lastUpdated})
 
 const mapDispatchToProps = dispatch => ({
-  setStories(){
-  	dispatch(setStories())
+  setStories(stories){
+  	dispatch(setStories(stories))
   },
   setLastUpdated() {
   	dispatch(setLastUpdated())
+  },
+  setLoading(bool) {
+  	dispatch(setLoading(bool))
   }
 })
 

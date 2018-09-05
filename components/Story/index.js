@@ -116,11 +116,11 @@ class Story extends React.Component {
 
 	render() {
 
-		const { by, title, id, score, time, url, type, active, className } = this.props
+		const { by, title, id, score, time, url, type, className } = this.props
 
 		return (
 			<ArticleWrapper>
-				<Article active={active} score={score}>
+				<Article score={score}>
 					<Row column>
 						<Row spaceBetween>
 							<StoryTimestamp time={time} />

@@ -11,9 +11,9 @@ export const INITIAL_STATE = {
 export const reducer = (state = INITIAL_STATE, action) => {
   let favorites, index;
   switch (action.type) {
-    case types.ADD:
+    case types.SET_LOADING: 
       return Object.assign({}, state, {
-        count: state.count + 1
+        loading: action.payload
       })
     case types.SET_STORIES: 
       return Object.assign({}, state, {

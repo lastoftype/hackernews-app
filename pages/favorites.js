@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link'
 import styled from 'styled-components'
 import { bindActionCreators } from 'redux'
-import { setFavoriteStories, setLastUpdated } from '../store/actions'
+import { setFavoriteStories, setLastUpdated, setLoading } from '../store/actions'
 import { connect } from 'react-redux'
 
 import Head from '../components/Head'
@@ -33,29 +33,16 @@ const Background = styled.div`
 
 class FavoritesPage extends React.Component {
 
-	state = {
-		stories: []
-	}
-
 	static getInitialProps ({ store, isServer }) {
-
-		const {favorites} = store.getState();
-
-		let promise = apiClient.getStories(favorites)
-			.then((stories) => {
-				if(stories && stories.length) {
-					store.dispatch(setFavoriteStories(stories))
-				}
-				return stories;
-			})
-
-    return !isServer ? promise : {}
+    return store.getState()
   }
 
   fetchStories() {
+  	this.props.setLoading(true)
   	return apiClient
 			.getStories(this.props.favorites)
 			.then((stories) => {
+				this.props.setLoading(false)
 				this.props.setFavoriteStories(stories);
 				return stories;
 			})
@@ -65,6 +52,10 @@ class FavoritesPage extends React.Component {
 		super(props)
 		this.apiClient = apiClient;
 	}
+
+	componentDidMount() {
+  	this.fetchStories()
+  }
 
 	componentDidUpdate(prevProps, prevState, snapshot) {
 		if(prevProps.favorites.length !== this.props.favorites.length) {
@@ -82,6 +73,7 @@ class FavoritesPage extends React.Component {
 			  		<Row>
 				  		<SideNav favoriteCount={this.props.favorites.length} />
 				    	<StoryList 
+				    		loading={this.props.loading}
 				    		title="Favorites" 
 				    		lastUpdated={this.props.lastUpdated}
 				    		stories={this.props.favoriteStories} />
@@ -101,6 +93,9 @@ const mapDispatchToProps = dispatch => ({
   },
   setLastUpdated() {
   	dispatch(setLastUpdated())
+  },
+  setLoading(bool) {
+  	dispatch(setLoading(bool))
   }
 })
 
