@@ -6,14 +6,16 @@ import media from 'styled-media-query'
 import domain from 'getdomain'
 import moment from 'moment'
 
-import Timestamp from '../Timestamp'
+import StoryTimestamp from '../StoryTimestamp'
 import StoryLink from '../StoryLink'
-import Score from '../Score'
+import StoryTitle from '../StoryTitle'
+import StoryScore from '../StoryScore'
+import StoryIcon from '../StoryIcon'
 import { Row } from '../Layout'
 
 import { StorySchema } from '../../lib/schema'
 
-const ArticleWrapper = styled.article`
+const ArticleWrapper = styled.div`
 	flex: 0 0 100%;
 	width: 100%;
 	display: flex;
@@ -50,7 +52,7 @@ const Article = styled.article`
 	transform: translateY(0);
 	background: white;
 
-	&:hover {
+	/*&:hover {
 		transform: translateY(-1px);
     -webkit-box-shadow: 0 7px 14px rgba(50,50,93,.1), 0 3px 6px rgba(0,0,0,.08);
     box-shadow: 0 7px 14px rgba(50,50,93,.1), 0 3px 6px rgba(0,0,0,.08);
@@ -64,23 +66,7 @@ const Article = styled.article`
 			-webkit-background-clip: text;
 	  	transition: all .15s ease;
     }
-	}
-
-	h1 {
-		font-size: ${props => parseInt(props.score, 10) > 250 ? '1.3em' : '1.15em'};
-		font-weight: bold;
-		line-height: 1.2;
-		margin: 0 0 0.2em;
-		-webkit-font-smoothing: antialiased;
-		font-smooth: antialiased;
-		background: #000;
-		-webkit-text-fill-color: transparent;
-		-webkit-background-clip: text;
-
-		a {
-			text-decoration: none;
-		}
-	}
+	}*/
 `
 
 class Story extends React.Component {
@@ -93,20 +79,27 @@ class Story extends React.Component {
 		super(props);
 	}
 
+	toggle = () => {
+		console.log('toggled')
+	}
+
 	render() {
 
-		const { by, title, id, score, time, url, type, className } = this.props
+		const { by, title, id, score, time, url, type, active, className } = this.props
 
 		return (
-			<ArticleWrapper {...this.props}>
-				<Article score={score}>
+			<ArticleWrapper>
+				<Article active={active} score={score}>
 					<Row column>
-						<Timestamp time={time} />
-						<h1><a href={url}>{title}</a></h1>
+						<Row spaceBetween>
+							<StoryTimestamp time={time} />
+							<StoryScore score={score} />
+						</Row>
+						<StoryTitle title={title} url={url} score={score} />
 					</Row>
 					<Row spaceBetween>
 						<StoryLink url={url} title={title} />
-						<Score score={score} />
+						<StoryIcon active={active} onClick={() => this.toggle} />
 					</Row>
 				</Article>
 			</ArticleWrapper>

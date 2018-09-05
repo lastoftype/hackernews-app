@@ -13,7 +13,7 @@ const Header = styled.header`
 	width: 100%;
 	z-index: 1;
 	background: white;
-	border-bottom: 1px solid #F6F9FC;
+	border-bottom: 2px solid rgba(207,215,223,.25);
 `
 
 export default ({className, ...props}) => (

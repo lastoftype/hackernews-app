@@ -8,6 +8,7 @@ const StoryLink = styled.a`
 	text-decoration: none;
 	display: flex;
 	align-items: flex-end;
+	color: black;
 `
 
 export default ({url, title}) => (

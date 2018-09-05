@@ -18,6 +18,7 @@ const StoryTitle = styled.h1`
 	font-weight: normal;
 	padding: 7.5px;
 	color: #24b47e;
+	line-height: 1;
 `
 
 class StoryList extends React.Component {
@@ -51,6 +52,7 @@ class StoryList extends React.Component {
 								score={score}
 								time={time}
 								url={url}
+								active={score > 140}
 								key={i} />
 						)
 					)

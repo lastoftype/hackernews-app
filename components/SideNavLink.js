@@ -11,5 +11,5 @@ const SideNavLink = styled(Link)`
 `
 
 export default ({children, href, ...props}) => (
-	<SideNavLink {...props} href={href}><a>{children}</a></SideNavLink>
+	<Link href={href}><a>{children}</a></Link>
 	)
