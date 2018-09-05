@@ -1,10 +1,14 @@
 {
   "name": "hackernews-app",
+  "now" : {
+    "alias": "hackernews-app"
+  },
   "author": "lastoftype",
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "deploy": "now && now alias"
   },
   "dependencies": {
     "@zeit/next-css": "^0.2.0",
