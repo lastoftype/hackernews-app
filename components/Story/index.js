@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
-import styled, {keyframes} from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import media from 'styled-media-query'
 import domain from 'getdomain'
 import moment from 'moment'
@@ -33,46 +33,42 @@ const FadeIn = keyframes`
 `
 
 const ArticleWrapper = styled.div`
-	flex: 0 0 100%;
-	width: 100%;
-	display: flex;
-	padding: 7.5px;
-	opacity: 0;
-	animation: ${FadeIn} .15s ease forwards .15s;
+  flex: 0 0 100%;
+  width: 100%;
+  display: flex;
+  padding: 7.5px;
+  opacity: 0;
+  animation: ${FadeIn} 0.15s ease forwards 0.15s;
 
-
-	${media.greaterThan('small')`
+  ${media.greaterThan('small')`
 	 	flex: 0 0 50%;
 	 	width: 50%;
-	 `}
-
-
-	${media.greaterThan('medium')`
+	 `} ${media.greaterThan('medium')`
 	 	flex: 0 0 33.333%;
 	 	width: 33.333%;
 	 `}
 
 
 	@media screen and (min-width: 1170px) {
-	 	flex: 1 1 ${props => parseInt(props.score, 10) > 250 ? '50%' : '25%'};
-		width: ${props => parseInt(props.score, 10) > 250 ? '50%' : '25%'};
-	}
+    flex: 1 1 ${props => (parseInt(props.score, 10) > 250 ? '50%' : '25%')};
+    width: ${props => (parseInt(props.score, 10) > 250 ? '50%' : '25%')};
+  }
 `
 
 const Article = styled.article`
-	flex: 0 0 100%;
-	width: 100%;
-	border-radius: 4px;
-	padding: 15px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	transition: all .15s ease;
-	box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
-	transform: translateY(0);
-	background: white;
+  flex: 0 0 100%;
+  width: 100%;
+  border-radius: 4px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.15s ease;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  transform: translateY(0);
+  background: white;
 
-	/*&:hover {
+  /*&:hover {
 		transform: translateY(-1px);
     -webkit-box-shadow: 0 7px 14px rgba(50,50,93,.1), 0 3px 6px rgba(0,0,0,.08);
     box-shadow: 0 7px 14px rgba(50,50,93,.1), 0 3px 6px rgba(0,0,0,.08);
@@ -90,78 +86,82 @@ const Article = styled.article`
 `
 
 class Story extends React.Component {
+  static propTypes = {
+    ...StorySchema
+  }
 
-	static propTypes = {
-		...StorySchema
-	};
+  constructor(props) {
+    super(props)
+  }
 
-	constructor(props) {
-		super(props);
-	}
+  toggle = () => {
+    console.log('toggled')
+  }
 
-	toggle = () => {
-		console.log('toggled')
-	}
+  toggleFavorite = () => {
+    const { favorites, id } = this.props
+    const inArray = favorites.indexOf(id) !== -1
 
-	toggleFavorite = () => {
-		const {favorites, id} = this.props;
-		const inArray = favorites.indexOf(id) !== -1;
+    console.log({ inArray }, { favorites })
 
-		console.log({inArray}, {favorites});
+    if (inArray) {
+      this.removeFavorite(id)
+    } else {
+      this.addFavorite(id)
+    }
+  }
 
-		if(inArray) {
-			this.removeFavorite(id);
-		} else {
-			this.addFavorite(id);
-		}
-	}
+  removeFavorite = () => {
+    this.props.removeFavorite(this.props.id)
+  }
 
-	removeFavorite = () => {
-		this.props.removeFavorite(this.props.id);
-	}
+  addFavorite = () => {
+    this.props.addFavorite(this.props.id)
+  }
 
-	addFavorite = () => {
-		this.props.addFavorite(this.props.id);
-	}
+  get isActive() {
+    const { favorites, id } = this.props
+    return favorites.indexOf(id) !== -1
+  }
 
-	get isActive() {
-		const {favorites, id} = this.props;
-		return favorites.indexOf(id) !== -1;
-	}
+  render() {
+    const { by, title, id, score, time, url, type, className } = this.props
 
-	render() {
-
-		const { by, title, id, score, time, url, type, className } = this.props
-
-		return (
-			<ArticleWrapper>
-				<Article score={score}>
-					<Row column>
-						<Row spaceBetween>
-							<StoryTimestamp time={time} />
-							<StoryScore score={score} />
-						</Row>
-						<StoryTitle title={title} url={url} score={score} />
-					</Row>
-					<Row spaceBetween>
-						<StoryAuthor author={by} />
-						<StoryIcon active={this.isActive} handleClick={() => this.toggleFavorite} />
-					</Row>
-				</Article>
-			</ArticleWrapper>
-		);
-	}
+    return (
+      <ArticleWrapper>
+        <Article score={score}>
+          <Row column>
+            <Row spaceBetween>
+              <StoryTimestamp time={time} />
+              <StoryScore score={score} />
+            </Row>
+            <StoryTitle title={title} url={url} score={score} />
+          </Row>
+          <Row spaceBetween>
+            <StoryAuthor author={by} />
+            <StoryIcon
+              active={this.isActive}
+              handleClick={() => this.toggleFavorite}
+            />
+          </Row>
+        </Article>
+      </ArticleWrapper>
+    )
+  }
 }
 
-const mapStateToProps = ({loading, favorites}) => ({favorites, loading})
+const mapStateToProps = ({ loading, favorites }) => ({ favorites, loading })
 
 const mapDispatchToProps = dispatch => ({
-  addFavorite(id){
-  	dispatch(addFavorite(id))
+  addFavorite(id) {
+    dispatch(addFavorite(id))
   },
-  removeFavorite(id){
-  	dispatch(removeFavorite(id))
+  removeFavorite(id) {
+    dispatch(removeFavorite(id))
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Story)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Story)

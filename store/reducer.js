@@ -9,17 +9,17 @@ export const INITIAL_STATE = {
 }
 
 export const reducer = (state = INITIAL_STATE, action) => {
-  let favorites, index;
+  let favorites, index
   switch (action.type) {
-    case types.SET_LOADING: 
+    case types.SET_LOADING:
       return Object.assign({}, state, {
         loading: action.payload
       })
-    case types.SET_STORIES: 
+    case types.SET_STORIES:
       return Object.assign({}, state, {
         stories: action.payload
       })
-    case types.SET_FAVORITE_STORIES: 
+    case types.SET_FAVORITE_STORIES:
       return Object.assign({}, state, {
         favoriteStories: action.payload
       })
@@ -29,9 +29,9 @@ export const reducer = (state = INITIAL_STATE, action) => {
         favorites: favorites
       })
     case types.REMOVE_FAVORITE:
-      index = state.favorites.indexOf(action.payload);
+      index = state.favorites.indexOf(action.payload)
       favorites = [...state.favorites]
-      favorites.splice(index, 1);
+      favorites.splice(index, 1)
       return Object.assign({}, state, {
         favorites: favorites
       })
@@ -39,6 +39,7 @@ export const reducer = (state = INITIAL_STATE, action) => {
       return Object.assign({}, state, {
         lastUpdated: Date.now()
       })
-    default: return state
+    default:
+      return state
   }
 }

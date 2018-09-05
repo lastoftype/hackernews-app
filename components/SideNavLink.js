@@ -7,9 +7,9 @@ const SideNavLink = withRouter(({ router, children, ...props }) => (
   <Link {...props}>
     {React.cloneElement(Children.only(children), {
       className:
-        `/${router.pathname.split("/")[1]}` === props.href ? `active` : null
+        `/${router.pathname.split('/')[1]}` === props.href ? `active` : null
     })}
   </Link>
-));
+))
 
 export default withRouter(SideNavLink)
