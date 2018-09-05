@@ -12,7 +12,9 @@ let middlewares = [
 
 // Only add localStorage if not on server
 if(typeof localStorage !== 'undefined') {
-	middlewares.push(persistState(['favorites']))
+	middlewares.push(persistState({
+		key: 'hackernews'
+	}))
 }
 
 export const initStore = (initialState = INITIAL_STATE) => {
