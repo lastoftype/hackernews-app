@@ -1,6 +1,6 @@
 {
   "name": "hackernews-app",
-  "now" : {
+  "now": {
     "alias": "hackernews-app"
   },
   "author": "lastoftype",
@@ -8,7 +8,8 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "deploy": "now && now alias"
+    "deploy": "now && now alias",
+    "clean": "prettier --write '{components,lib,pages,store,api}/**/*.js'"
   },
   "dependencies": {
     "@zeit/next-css": "^0.2.0",
@@ -25,6 +26,7 @@
     "next-redux-wrapper": "^2.0.0",
     "node-sass": "^4.9.3",
     "object-assign": "^4.1.1",
+    "prettier": "^1.14.2",
     "qs": "^6.5.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
