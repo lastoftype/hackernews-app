@@ -38,14 +38,7 @@ class HackerPage extends React.Component {
   }
 
   componentDidMount() {
-
-  	// Only update if it's over 60 seconds ago
-  	let minuteHasPassed = (Date.now() - this.props.lastUpdated) < 60000;
-  	let hasNoStories = this.props.stories && this.props.stories.length < 1;
-  	
-  	if(minuteHasPassed && hasNoStories) {
-  		this.fetchStories()
-  	}
+  	this.fetchStories()
   }
 
   fetchStories() {
