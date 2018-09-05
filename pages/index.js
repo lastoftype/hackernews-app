@@ -1,6 +1,9 @@
 import React from 'react';
 import Link from 'next/link'
 import styled from 'styled-components'
+import { bindActionCreators } from 'redux'
+import { setStories } from '../store/actions'
+import { connect } from 'react-redux'
 
 import Head from '../components/Head'
 
@@ -34,19 +37,22 @@ class HackerPage extends React.Component {
 		stories: []
 	}
 
+	static getInitialProps ({ store, isServer }) {
+    return apiClient
+			.getTopStories()
+			.then((stories) => {
+				store.dispatch(setStories(stories))
+				return stories;
+			})
+  }
+
 	constructor(props) {
 		super(props)
 		this.apiClient = apiClient;
 	}
 
 	componentDidMount() {
-		this.apiClient
-			.getTopStories()
-			.then((data) => {
-				this.setState({
-					stories: data
-				})
-			})
+		
 	}
 
 	render() {
@@ -56,9 +62,10 @@ class HackerPage extends React.Component {
 				<Header />
 			  <StoryListWrapper>
 			  	<Container>
+			  		{JSON.stringify(this.props.favorites)}
 			  		<Row>
 				  		<SideNav />
-				    	<StoryList stories={this.state.stories} />
+				    	<StoryList stories={this.props.stories} />
 			    	</Row>
 			    </Container>
 			  </StoryListWrapper>
@@ -67,5 +74,12 @@ class HackerPage extends React.Component {
 	}
 }
 
+const mapStateToProps = ({loading, favorites, stories}) => ({favorites, loading, stories})
 
-export default HackerPage
+const mapDispatchToProps = dispatch => ({
+  setStories(){
+  	dispatch(setStories())
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(HackerPage)

@@ -23,8 +23,8 @@ const Icon = styled.button`
 	}
 `
 
-const StoryIcon = ({active, onClick, ...props}) => (
-	<Icon onClick={onClick()}>
+const StoryIcon = ({active, handleClick, ...props}) => (
+	<Icon onClick={handleClick()}>
 		<img src={active === true ? starIconYellow : starIconBlack} />
 	</Icon>
 	)

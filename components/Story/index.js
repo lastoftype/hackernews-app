@@ -6,6 +6,10 @@ import media from 'styled-media-query'
 import domain from 'getdomain'
 import moment from 'moment'
 
+import { bindActionCreators } from 'redux'
+import { addFavorite, removeFavorite } from '../../store/actions'
+import { connect } from 'react-redux'
+
 import StoryTimestamp from '../StoryTimestamp'
 import StoryLink from '../StoryLink'
 import StoryTitle from '../StoryTitle'
@@ -83,6 +87,32 @@ class Story extends React.Component {
 		console.log('toggled')
 	}
 
+	toggleFavorite = () => {
+		const {favorites, id} = this.props;
+		const inArray = favorites.indexOf(id) !== -1;
+
+		console.log({inArray}, {favorites});
+
+		if(inArray) {
+			this.removeFavorite(id);
+		} else {
+			this.addFavorite(id);
+		}
+	}
+
+	removeFavorite = () => {
+		this.props.removeFavorite(this.props.id);
+	}
+
+	addFavorite = () => {
+		this.props.addFavorite(this.props.id);
+	}
+
+	get isActive() {
+		const {favorites, id} = this.props;
+		return favorites.indexOf(id) !== -1;
+	}
+
 	render() {
 
 		const { by, title, id, score, time, url, type, active, className } = this.props
@@ -99,7 +129,7 @@ class Story extends React.Component {
 					</Row>
 					<Row spaceBetween>
 						<StoryLink url={url} title={title} />
-						<StoryIcon active={active} onClick={() => this.toggle} />
+						<StoryIcon active={this.isActive} handleClick={() => this.toggleFavorite} />
 					</Row>
 				</Article>
 			</ArticleWrapper>
@@ -107,4 +137,15 @@ class Story extends React.Component {
 	}
 }
 
-export default Story
+const mapStateToProps = ({loading, favorites}) => ({favorites, loading})
+
+const mapDispatchToProps = dispatch => ({
+  addFavorite(id){
+  	dispatch(addFavorite(id))
+  },
+  removeFavorite(id){
+  	dispatch(removeFavorite(id))
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Story)
