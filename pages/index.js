@@ -71,7 +71,7 @@ class HackerPage extends React.Component {
               <StoryList
                 loading={this.props.loading}
                 lastUpdated={this.props.lastUpdated}
-                title="Top stories"
+                pageTitle="Top stories"
                 stories={this.props.stories}
               />
             </Row>

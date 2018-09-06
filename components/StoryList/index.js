@@ -6,6 +6,7 @@ import Story from '../Story'
 import { Row } from '../Layout'
 import LastUpdated from '../LastUpdated'
 import Loading from '../Loading'
+import StoryEmpty from '../StoryEmpty'
 
 import delayUnmounting from '../../lib/delay'
 import StorySchema from '../../lib/schema'
@@ -29,7 +30,8 @@ const PageTitle = styled.h1`
 class StoryList extends React.Component {
   static propTypes = {
     stories: PropTypes.arrayOf(PropTypes.shape(StorySchema)),
-    lastUpdated: PropTypes.number
+    lastUpdated: PropTypes.number,
+    pageTitle: PropTypes.string
   }
 
   constructor(props) {
@@ -37,12 +39,12 @@ class StoryList extends React.Component {
   }
 
   render() {
-    const { stories, title, loading } = this.props
+    const { stories, pageTitle, loading } = this.props
 
     return (
       <StoryListWrapper {...this.props}>
         <Row spaceBetween alignItems="flex-end">
-          <PageTitle>{title}</PageTitle>
+          <PageTitle>{pageTitle}</PageTitle>
           <LastUpdated date={this.props.lastUpdated} />
         </Row>
         <Row>
@@ -50,6 +52,13 @@ class StoryList extends React.Component {
             delayTime={500}
             isMounted={loading === true && stories.length < 1}
           />
+          {
+            pageTitle === 'Favorites' &&
+            stories.length < 1 && 
+            <StoryEmpty
+              delayTime={500}
+              isMounted={stories.length < 1} />
+            }
           {stories &&
             stories.length > 0 &&
             stories.map(({ by, title, id, time, url, score }, i) => (

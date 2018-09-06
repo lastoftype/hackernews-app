@@ -75,7 +75,7 @@ class FavoritesPage extends React.Component {
               <SideNav favoriteCount={this.props.favorites.length} />
               <StoryList
                 loading={this.props.loading}
-                title="Favorites"
+                pageTitle="Favorites"
                 lastUpdated={this.props.lastUpdated}
                 stories={this.props.favoriteStories}
               />
