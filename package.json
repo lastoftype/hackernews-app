@@ -8,7 +8,7 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "deploy": "now && now alias",
+    "deploy": "now && now alias && now scale https://hackernews-app.now.sh 1",
     "clean": "prettier --write '{components,lib,pages,store,api}/**/*.js'"
   },
   "dependencies": {

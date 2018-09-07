@@ -5,8 +5,7 @@ import { bindActionCreators } from 'redux'
 import { setStories, setLastUpdated, setLoading } from '../store/actions'
 import { connect } from 'react-redux'
 
-import Head from '../components/Head'
-
+import Page from '../components/Page'
 import StoryList from '../components/StoryList'
 import Header from '../components/Header'
 import SideNav from '../components/SideNav'
@@ -61,7 +60,7 @@ class HackerPage extends React.Component {
 
   render() {
     return (
-      <div>
+      <Page>
         <Background />
         <Header />
         <StoryListWrapper>
@@ -77,7 +76,7 @@ class HackerPage extends React.Component {
             </Row>
           </Container>
         </StoryListWrapper>
-      </div>
+      </Page>
     )
   }
 }
