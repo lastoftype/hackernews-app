@@ -8,6 +8,8 @@ import {
   setLoading
 } from '../store/actions'
 import { connect } from 'react-redux'
+import media from 'styled-media-query'
+
 
 import Page from '../components/Page'
 import StoryList from '../components/StoryList'
@@ -21,7 +23,10 @@ import ApiClient from '../api'
 let apiClient = new ApiClient()
 
 const StoryListWrapper = styled.main`
-  padding-top: 80px;
+  padding-top: 65px;
+  ${media.greaterThan('medium')`
+    padding-top: 80px;
+  `}
 `
 
 class FavoritesPage extends React.Component {

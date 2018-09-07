@@ -5,22 +5,31 @@ import Link from 'next/link'
 import SideNavLink from './SideNavLink'
 
 const SideNav = styled.nav`
-  display: none;
-  flex: 0 0 150px;
+  flex: 0 0 100%;
   padding: 7.5px;
   margin-top: -7.5px;
+  margin-left: -7.5px;
+  margin-right: -7.5px;
   font-size: 0.85em;
+  display: flex;
 
   ${media.greaterThan('medium')`
+    flex: 0 0 150px;
 		display: block;
-	 `} a {
+    margin-left: 0;
+    margin-right: 0;
+	 `} 
+
+   a {
     display: flex;
     align-items: baseline;
     color: #32325d;
     text-decoration: none;
     margin: 0 0 7.5px;
+    flex: 0 0 50%;
 
     &:before {
+      display: none;
       position: absolute;
       left: -10px;
       top: 0;
@@ -31,9 +40,12 @@ const SideNav = styled.nav`
       background: #199365;
       border-radius: 30px;
       content: ' ';
-      display: block;
       opacity: 0;
       transition: all 0.15s ease;
+
+      ${media.greaterThan('medium')`
+        display: block;
+      `}
     }
 
     &.active {

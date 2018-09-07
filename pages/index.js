@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { bindActionCreators } from 'redux'
 import { setStories, setLastUpdated, setLoading } from '../store/actions'
 import { connect } from 'react-redux'
+import media from 'styled-media-query'
 
 import Background from '../components/Background'
 import Page from '../components/Page'
@@ -17,7 +18,16 @@ import ApiClient from '../api'
 let apiClient = new ApiClient()
 
 const StoryListWrapper = styled.main`
-  padding-top: 80px;
+  padding-top: 65px;
+  
+  ${media.greaterThan('medium')`
+    padding-top: 80px;
+  `}
+`
+
+const FlexRow = Row.extend`
+  flex-wrap: wrap;
+  
 `
 
 class HackerPage extends React.Component {
@@ -55,7 +65,7 @@ class HackerPage extends React.Component {
         <Header />
         <StoryListWrapper>
           <Container>
-            <Row>
+            <FlexRow>
               <SideNav favoriteCount={this.props.favorites.length} />
               <StoryList
                 loading={this.props.loading}
@@ -63,7 +73,7 @@ class HackerPage extends React.Component {
                 pageTitle="Top stories"
                 stories={this.props.stories}
               />
-            </Row>
+            </FlexRow>
           </Container>
         </StoryListWrapper>
       </Page>
