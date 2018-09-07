@@ -52,13 +52,10 @@ class StoryList extends React.Component {
             delayTime={500}
             isMounted={loading === true && stories.length < 1}
           />
-          {
-            pageTitle === 'Favorites' &&
-            stories.length < 1 && 
-            <StoryEmpty
-              delayTime={500}
-              isMounted={stories.length < 1} />
-            }
+          {pageTitle === 'Favorites' &&
+            stories.length < 1 && (
+              <StoryEmpty delayTime={500} isMounted={stories.length < 1} />
+            )}
           {stories &&
             stories.length > 0 &&
             stories.map(({ by, title, id, time, url, score }, i) => (

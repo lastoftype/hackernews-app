@@ -1,4 +1,4 @@
-import styled, {keyframes} from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import ArticleWrapper from './ArticleWrapper'
 
 import delayMounting from '../lib/delay'
@@ -58,6 +58,6 @@ const StoryEmpty = ({ className, isMounted, ...props }) => (
       No favorites yet!
     </StoryEmptyWrapper>
   </ArticleEmptyWrapper>
-  )
+)
 
 export default delayMounting(StoryEmpty)
