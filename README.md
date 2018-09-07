@@ -18,4 +18,6 @@ $ yarn dev
 $ yarn clean
 ```
 
+A live version of this app is deployed at [https://hackernews-app.now.sh](https://hackernews-app.now.sh)
+
 This project was bootstrapped with [Create Next App](https://github.com/segmentio/create-next-app).
