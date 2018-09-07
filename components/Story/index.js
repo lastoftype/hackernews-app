@@ -33,22 +33,6 @@ const Article = styled.article`
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
   transform: translateY(0);
   background: white;
-
-  /*&:hover {
-		transform: translateY(-1px);
-    -webkit-box-shadow: 0 7px 14px rgba(50,50,93,.1), 0 3px 6px rgba(0,0,0,.08);
-    box-shadow: 0 7px 14px rgba(50,50,93,.1), 0 3px 6px rgba(0,0,0,.08);
-    cursor: pointer;
-
-    h1 {
-    	background: #24b47e;
-			background: -webkit-linear-gradient(55deg, #185a9d, #24b47e);
-			background: linear-gradient(55deg, #185a9d, #24b47e);
-			-webkit-text-fill-color: transparent;
-			-webkit-background-clip: text;
-	  	transition: all .15s ease;
-    }
-	}*/
 `
 
 class Story extends React.Component {
