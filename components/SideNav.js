@@ -18,9 +18,7 @@ const SideNav = styled.nav`
 		display: block;
     margin-left: 0;
     margin-right: 0;
-	 `} 
-
-   a {
+	 `} a {
     display: flex;
     align-items: baseline;
     color: #32325d;
@@ -45,7 +43,7 @@ const SideNav = styled.nav`
 
       ${media.greaterThan('medium')`
         display: block;
-      `}
+      `};
     }
 
     &.active {

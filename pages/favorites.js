@@ -10,7 +10,6 @@ import {
 import { connect } from 'react-redux'
 import media from 'styled-media-query'
 
-
 import Page from '../components/Page'
 import StoryList from '../components/StoryList'
 import Header from '../components/Header'
@@ -26,7 +25,7 @@ const StoryListWrapper = styled.main`
   padding-top: 65px;
   ${media.greaterThan('medium')`
     padding-top: 80px;
-  `}
+  `};
 `
 
 class FavoritesPage extends React.Component {

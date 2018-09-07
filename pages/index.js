@@ -19,15 +19,14 @@ let apiClient = new ApiClient()
 
 const StoryListWrapper = styled.main`
   padding-top: 65px;
-  
+
   ${media.greaterThan('medium')`
     padding-top: 80px;
-  `}
+  `};
 `
 
 const FlexRow = Row.extend`
   flex-wrap: wrap;
-  
 `
 
 class HackerPage extends React.Component {
