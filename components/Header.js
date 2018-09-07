@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 
-import Nav from './Nav'
 import Logo from './Logo'
 import { Container, Row } from './Layout'
 
@@ -21,7 +20,6 @@ export default ({ className, ...props }) => (
     <Container row>
       <Row>
         <Logo />
-        <Nav />
       </Row>
     </Container>
   </Header>

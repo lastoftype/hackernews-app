@@ -40,7 +40,6 @@ const StoryEmptyWrapper = styled.article`
   transition: all 0.15s ease;
   transform: translateY(0);
   background: #e6ebf1;
-  /*opacity: 0;*/
   animation: ${props => (props.isMounted ? FadeIn : FadeOut)} 0.15s ease
     forwards;
 `
